@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cut the Cake! 🍰</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle, #fff0f5, #ffc0cb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .cake {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: pink;
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .cake::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 60px;
+      background: gold;
+      border-radius: 15px;
+      animation: flame 1s infinite;
+    }
+    @keyframes flame {
+      0%, 100% { background: orange; transform: scale(1); }
+      50% { background: red; transform: scale(1.2); }
+    }
+    .cut-button {
+      margin-top: 40px;
+    }
+    .slice {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      background: pink;
+      border-radius: 50% 50% 0 0;
+      clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 50%);
+      transform: scale(0);
+      transition: transform 1s ease-in-out;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="mb-4">🎂 Time to Cut the Cake!</h1>
+
+  <div class="cake" id="cake"></div>
+  <div class="slice" id="slice"></div>
+
+  <button onclick="cutCake()" class="btn btn-danger cut-button">🔪 Cut Cake</button>
+  <a href="/birthdaywish.html/BIRTHDAY.html" class="btn btn-secondary mt-3">← Back to Home</a>
+
+  <script>
+    function cutCake() {
+      const slice = document.getElementById("slice");
+      slice.style.transform = "scale(1)";
+      setTimeout(() => {
+        alert("🎉 A slice of sweetness just for you! Happy Birthday!");
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
