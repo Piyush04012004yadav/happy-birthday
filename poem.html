@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            text-align: center;
+            background-image: url('/birthdaywish.html/Love Poems Background.png'), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
+            background-size: contain, cover;
+            background-repeat: no-repeat, no-repeat;
+            background-position: center, center;
+            min-height: 100vh;
+        }
+        blockquote {
+            margin: 40px auto 0 auto;
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.2em;
+        }
+        .back-box {
+            display: inline-block;
+            padding: 24px 32px;
+            background: transparent;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-top: 32px;
+        }
+        .typewriter {
+            display: inline-block;
+            border-right: 2px solid transparent;
+            white-space: pre-wrap;
+            overflow: hidden;
+            animation: blink-caret 0.75s step-end infinite;
+            min-height: 2em;
+        }
+        @keyframes blink-caret {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Feelings by Poem</h1>
+    <p class="fw-semibold">Here is a special poem just for you:</p>
+    <blockquote>
+        <span id="typewriter1" class="typewriter"></span>
+    </blockquote>
+    <blockquote>
+        <span id="typewriter2" class="typewriter"></span>
+    </blockquote>
+    <div class="back-box mt-4">
+        <a href="/birthdaywish.html/BIRTHDAY.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+    <script>
+        // Texts for typewriter animation
+        const text1 = `Baat choti si hai par kehna jaruri hai zindagi meri hai par apka hona jaruri hai.
+"बात छोटी सी है, पर कहना ज़रूरी है — ज़िन्दगी मेरी है, पर आपका होना ज़रूरी है।"`;
+        const text2 = `"When you're near, my soul feels complete,
+Without you, my heart sulks in defeat."
+
+"तू मिले तो लगे जैसे रूह को सुकून मिला,
+तेरे बिना तो जैसे दिल खुद से रूठा मिला।"`;
+
+        function typeWriter(elementId, text, delay = 30, callback) {
+            let i = 0;
+            function typing() {
+                if (i < text.length) {
+                    document.getElementById(elementId).textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typing, delay);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typing();
+        }
+
+        // Animate first, then second
+        typeWriter('typewriter1', text1, 30, function() {
+            setTimeout(function() {
+                typeWriter('typewriter2', text2, 30);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
