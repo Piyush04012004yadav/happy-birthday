@@ -8,7 +8,7 @@
     <style>
         body {
             text-align: center;
-            background-image: url('/birthdaywish.html/Love Poems Background.png'), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
+            background-image: url('Love Poems Background.png'), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
             background-size: contain, cover;
             background-repeat: no-repeat, no-repeat;
             background-position: center, center;
@@ -38,14 +38,27 @@
             animation: blink-caret 0.75s step-end infinite;
             min-height: 2em;
         }
+
         @keyframes blink-caret {
             0%, 100% { border-color: transparent; }
             50% { border-color: transparent; }
         }
+        .gradient-text {
+          font-size: 3em;
+          background: linear-gradient(to right, #ff99cc, #66ccff);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: fadeIn 3s ease-in-out forwards;
+          opacity: 0;
+        }
+        @keyframes fadeIn {
+          to { opacity: 1 }
+        }
     </style>
 </head>
 <body>
-    <h1>Feelings by Poem</h1>
+    <h1 class="gradient-text">You are my favorite story 💫</h1>
     <p class="fw-semibold">Here is a special poem just for you:</p>
     <blockquote>
         <span id="typewriter1" class="typewriter"></span>
@@ -56,6 +69,10 @@
     <div class="back-box mt-4">
         <a href="BIRTHDAY.html" class="btn btn-secondary">Back to Home</a>
     </div>
+    <audio id="bg-music" autoplay loop>
+        <source src="title-track-saiyaara-128-kbps_5oPTmmah.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <script>
         // Texts for typewriter animation
         const text1 = `Baat choti si hai par kehna jaruri hai zindagi meri hai par apka hona jaruri hai.
@@ -66,26 +83,40 @@ Without you, my heart sulks in defeat."
 "तू मिले तो लगे जैसे रूह को सुकून मिला,
 तेरे बिना तो जैसे दिल खुद से रूठा मिला।"`;
 
-        function typeWriter(elementId, text, delay = 30, callback) {
+        function speak(text) {
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = 'hi-IN'; // Hindi-English mix
+            speech.rate = 1;
+            speech.pitch = 200;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        function typeWriter(elementId, text, delay = 30, callback, triggerVoice = false) {
             let i = 0;
+            let voiceStarted = false;
             function typing() {
                 if (i < text.length) {
                     document.getElementById(elementId).textContent += text.charAt(i);
+                    if (triggerVoice && !voiceStarted) {
+                        speak(text);
+                        voiceStarted = true;
+                    }
                     i++;
                     setTimeout(typing, delay);
-                } else if (callback) {
-                    callback();
+                } else {
+                    if (callback) callback();
                 }
             }
             typing();
         }
 
-        // Animate first, then second
+        // Start the animation and reading
         typeWriter('typewriter1', text1, 30, function() {
             setTimeout(function() {
-                typeWriter('typewriter2', text2, 30);
+                typeWriter('typewriter2', text2, 30, null, true);
             }, 500);
-        });
+        }, true);
     </script>
 </body>
 </html>
