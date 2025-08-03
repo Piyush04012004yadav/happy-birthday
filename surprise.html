@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+    body {
+            text-align: center;
+            background-color: #e2be95b3; 
+            background-size: contain, cover;
+            background-repeat: no-repeat, no-repeat;
+            background-position: center, center;
+            min-height: 100vh;
+    }
+    .gift-box {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 200px auto;
+      background: linear-gradient(to bottom right, #ff4d4d, #ff9999);
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    .lid {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 250px;
+      height: 40px;
+      background: #ff6666;
+      border-radius: 8px;
+      transition: top 0.4s, left 0.4s, transform 0.4s;
+    }
+
+    .gift-box:hover .lid,
+    .lid.open {
+      top: -120px;
+      left: 180px;
+      transform: rotate(60deg);
+      
+      /* lid moves up, then right, then rotates down */
+    }
+
+    .ribbon {
+      position: absolute;
+      width: 20px;
+      height: 250px;
+      background: linear-gradient(to bottom, #fff 60%, #ffd700 100%);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .ribbon-horizontal {
+      position: absolute;
+      width: 250px;
+      height: 20px;
+      background: linear-gradient(to right, #fff 60%, #ffd700 100%);
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      border-radius: 8px;
+      z-index: 2;
+    }
+
+    .bow {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 40px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .bow span {
+      display: block;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #ffd700;
+      border-radius: 50%;
+      top: 5px;
+      left: 15px;
+      box-shadow: 0 0 8px #ffd700;
+    }
+
+    .bow:before, .bow:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 20px;
+      background: #ffd700;
+      border-radius: 50% 50% 0 0;
+      top: 0;
+    }
+
+    .bow:before {
+      left: 0;
+      transform: rotate(-25deg);
+    }
+
+    .bow:after {
+      right: 0;
+      transform: rotate(25deg);
+    }
+
+    .sparkles::after {
+      content: "✨";
+      position: absolute;
+      font-size: 24px;
+      top: -40px;
+      left: calc(50% - 12px);
+      animation: sparkle 1s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .lid.open {
+      top: -70px !important;
+      transition: top 0.4s;
+    }
+
+    .surprise-item {
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+      transform: translateX(-50%) scale(0);
+      width: 450px;
+      height: 450px;
+      z-index: 10;
+      transition: transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+      pointer-events: none;
+    }
+    .surprise-item.show {
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* New CSS for sparkles overlay */
+    #sparkles-overlay {
+      display: none;
+      pointer-events: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+    }
+
+    #sparkles-overlay span {
+      position: absolute;
+      display: block;
+      color: transparent;
+      text-shadow: 0 0 8px #ffd700, 0 0 16px #ffd700;
+    }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Surprise!</h1>
+        <p class="lead text-center">Happy Birthday! 🎉</p>
+    </div>
+    <div class="gift-box sparkles" id="giftBox" onclick="openGiftBox()">
+        <div class="lid" id="giftLid"></div>
+        <div class="ribbon"></div>
+        <div class="ribbon-horizontal"></div>
+        <div class="bow"><span></span></div>
+        <img src="/html programs/birthdaywish.html/Valentines Day Love GIF by Boomerang Official.gif" alt="Surprise!" class="surprise-item" id="surpriseItem">
+    </div>
+    <div class="text-center mt-4">
+        <a href="/birthdaywish.html/BIRTHDAY.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+
+    <!-- Sparkles overlay (moved outside .gift-box) -->
+    <div id="sparkles-overlay"></div>
+
+    <script>
+      function openGiftBox() {
+        document.getElementById('giftLid').classList.add('open');
+        setTimeout(function() {
+          document.getElementById('surpriseItem').classList.add('show');
+          // Show scattered sparkles
+          showScatteredSparkles();
+        }, 400); // Wait for lid animation before showing surprise and sparkles
+      }
+
+      function showScatteredSparkles() {
+        const overlay = document.getElementById('sparkles-overlay');
+        overlay.innerHTML = '';
+        overlay.style.display = 'block';
+        const sparkleCount = 25;
+        for (let i = 0; i < sparkleCount; i++) {
+          const span = document.createElement('span');
+          span.textContent = '✨';
+          span.style.position = 'absolute';
+          span.style.fontSize = `${24 + Math.random() * 32}px`;
+          span.style.left = `${Math.random() * 100}vw`;
+          span.style.top = `${Math.random() * 100}vh`;
+          span.style.opacity = 0;
+          span.style.transition = 'opacity 0.4s, transform 1.2s';
+          overlay.appendChild(span);
+          // Animate in
+          setTimeout(() => {
+            span.style.opacity = 1;
+            span.style.transform = `translate(${(Math.random()-0.5)*100}px, ${(Math.random()-0.5)*100}px) scale(${0.8 + Math.random()*1.2}) rotate(${Math.random()*360}deg)`;
+          }, 50 + i*30);
+          // Animate out
+          setTimeout(() => {
+            span.style.opacity = 0;
+          }, 1500 + i*20);
+        }
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          overlay.innerHTML = '';
+        }, 2200);
+      }
+    </script>
+</body>
+</html>
