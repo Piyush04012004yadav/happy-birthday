@@ -75,7 +75,7 @@
     </audio>
     <script>
         // Texts for typewriter animation
-        const text1 = `Baat choti si hai par kehna jaruri hai zindagi meri hai par apka hona jaruri hai.
+        const text1 = `"It’s a small thing to say, but it must be said — this life is mine, yet your presence in it is essential."
 "बात छोटी सी है, पर कहना ज़रूरी है — ज़िन्दगी मेरी है, पर आपका होना ज़रूरी है।"`;
         const text2 = `"When you're near, my soul feels complete,
 Without you, my heart sulks in defeat."
@@ -87,7 +87,7 @@ Without you, my heart sulks in defeat."
             const speech = new SpeechSynthesisUtterance(text);
             speech.lang = 'hi-IN'; // Hindi-English mix
             speech.rate = 1;
-            speech.pitch = 50;
+            speech.pitch = 1.15;
             speech.volume = 1;
             window.speechSynthesis.speak(speech);
         }
@@ -120,3 +120,4 @@ Without you, my heart sulks in defeat."
     </script>
 </body>
 </html>
+
